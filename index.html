@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevgilim İçin 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a0a2e, #2d1b4e, #1a0a2e);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            animation: floatUp linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        #login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            animation: fadeInUp 1s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-container .heart-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.15);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.1);
+            }
+        }
+
+        .login-container h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #f8a4c8;
+        }
+
+        .login-container p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .login-container label {
+            display: block;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #f0c0d8;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(248, 164, 200, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        .login-container input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .login-container input:focus {
+            border-color: #f8a4c8;
+            box-shadow: 0 0 20px rgba(248, 164, 200, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f8a4c8, #e06fa0);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.05rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(224, 111, 160, 0.4);
+        }
+
+        .error-msg {
+            color: #ff6b8a;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-msg.show {
+            opacity: 1;
+        }
+
+        .hint-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        #main-page {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #f8a4c8;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 600px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.6s both;
+            font-weight: 300;
+        }
+
+        .hero .big-heart {
+            font-size: 80px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0s both, heartbeat 1.5s ease-in-out 1s infinite;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s ease infinite;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .counter-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .counter-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #f8a4c8;
+            margin-bottom: 30px;
+        }
+
+        .counter-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .counter-box {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px 30px;
+            min-width: 100px;
+        }
+
+        .counter-box .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #f8a4c8;
+            display: block;
+        }
+
+        .counter-box .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .memories-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .memories-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #f8a4c8;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 35px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .memory-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(248, 164, 200, 0.15);
+            border-color: rgba(248, 164, 200, 0.3);
+        }
+
+        .memory-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .memory-card .memory-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 2px dashed rgba(248, 164, 200, 0.3);
+            color: rgba(248, 164, 200, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .memory-card .memory-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .memory-card .memory-img .placeholder-text {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .memory-content {
+            flex: 1;
+        }
+
+        .memory-content .memory-date {
+            font-size: 0.8rem;
+            color: #f8a4c8;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .memory-content h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .memory-content p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .letter-section {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .letter-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #f8a4c8;
+            margin-bottom: 30px;
+        }
+
+        .letter-box {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .letter-box .signature {
+            text-align: right;
+            margin-top: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #f8a4c8;
+            font-style: normal;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px 60px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer .footer-heart {
+            font-size: 1.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .memory-card {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .memory-card .memory-img {
+                width: 100%;
+                height: 250px;
+            }
+
+            .login-container {
+                padding: 40px 25px;
+            }
+
+            .login-container h1 {
+                font-size: 1.8rem;
+            }
+
+            .counter-box .number {
+                font-size: 2rem;
+            }
+
+            .letter-box {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            body {
+                -webkit-text-size-adjust: 100%;
+            }
+
+
+            .login-container {
+                padding: 35px 22px;
+                width: 92%;
+                border-radius: 20px;
+            }
+
+            .login-container .heart-icon {
+                font-size: 48px;
+                margin-bottom: 15px;
+            }
+
+            .login-container h1 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+
+            .login-container p {
+                font-size: 0.85rem;
+                margin-bottom: 22px;
+            }
+
+            .login-container label {
+                font-size: 0.85rem;
+            }
+
+            .login-container input {
+                padding: 12px 15px;
+                font-size: 1rem;
+                border-radius: 10px;
+            }
+
+            .login-btn {
+                padding: 13px;
+                font-size: 0.95rem;
+                border-radius: 10px;
+                margin-top: 16px;
+            }
+
+            .hint-text {
+                font-size: 0.7rem;
+            }
+
+
+            .hero {
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding: 30px 20px;
+            }
+
+            .hero .big-heart {
+                font-size: 55px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.3;
+                margin-bottom: 12px;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+                padding: 0 5px;
+            }
+
+            .scroll-indicator {
+                bottom: 20px;
+                font-size: 1.2rem;
+            }
+
+
+            .counter-section {
+                padding: 40px 15px;
+            }
+
+            .counter-section h2 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+
+            .counter-grid {
+                gap: 10px;
+            }
+
+            .counter-box {
+                padding: 18px 16px;
+                min-width: 70px;
+                border-radius: 12px;
+            }
+
+            .counter-box .number {
+                font-size: 1.6rem;
+            }
+
+            .counter-box .label {
+                font-size: 0.65rem;
+            }
+
+
+            .memories-section {
+                padding: 40px 15px;
+            }
+
+            .memories-section h2 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .memory-card {
+                flex-direction: column !important;
+                text-align: center;
+                padding: 20px;
+                margin-bottom: 25px;
+                border-radius: 16px;
+                gap: 15px;
+            }
+
+            .memory-card .memory-img {
+                width: 100%;
+                height: 220px;
+                border-radius: 12px;
+            }
+
+            .memory-card .memory-img img {
+                border-radius: 10px;
+            }
+
+            .memory-content .memory-date {
+                font-size: 0.75rem;
+            }
+
+            .memory-content h3 {
+                font-size: 1.35rem;
+                margin-bottom: 8px;
+            }
+
+            .memory-content p {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+
+
+            .letter-section {
+                padding: 50px 15px;
+            }
+
+            .letter-section h2 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .letter-box {
+                padding: 22px 18px;
+                font-size: 0.9rem;
+                line-height: 1.8;
+                border-radius: 16px;
+            }
+
+            .letter-box .signature {
+                font-size: 1.2rem;
+                margin-top: 20px;
+            }
+
+
+            .footer {
+                padding: 30px 15px 50px;
+                font-size: 0.8rem;
+            }
+
+
+            .music-btn {
+                width: 44px;
+                height: 44px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.1rem;
+            }
+
+
+            .floating-heart {
+                font-size: 14px;
+            }
+        }
+
+
+        @media (max-width: 375px) {
+            .login-container {
+                padding: 30px 18px;
+            }
+
+            .login-container h1 {
+                font-size: 1.45rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero .big-heart {
+                font-size: 45px;
+            }
+
+            .counter-box {
+                padding: 15px 12px;
+                min-width: 65px;
+            }
+
+            .counter-box .number {
+                font-size: 1.4rem;
+            }
+
+            .memory-card .memory-img {
+                height: 190px;
+            }
+
+            .memories-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .letter-box {
+                padding: 18px 15px;
+                font-size: 0.85rem;
+            }
+        }
+
+
+        @supports (padding: env(safe-area-inset-bottom)) {
+            .footer {
+                padding-bottom: calc(50px + env(safe-area-inset-bottom));
+            }
+
+            .music-btn {
+                bottom: calc(15px + env(safe-area-inset-bottom));
+            }
+
+            #login-page {
+                padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            }
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(248, 164, 200, 0.3);
+            border: 1px solid rgba(248, 164, 200, 0.5);
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            background: rgba(248, 164, 200, 0.5);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- KALP ANİMASYONLARI ARKA PLAN -->
+    <div class="hearts-bg" id="hearts-bg"></div>
+
+    <!-- ============ GİRİŞ SAYFASI ============ -->
+    <div id="login-page">
+        <div class="login-container">
+            <div class="heart-icon">💕</div>
+            <h1>Sevgilim...</h1>
+            <p>Sana özel bir sürprizim var ama önce küçük bir soru 🤭</p>
+
+            <label for="password">Bizi biz yapan tarih nedir?</label>
+            <input type="text" id="password" placeholder="GGAAYYYY" maxlength="8" autocomplete="off">
+
+            <button class="login-btn" onclick="checkPassword()">Kapıyı Aç 💗</button>
+
+            <p class="error-msg" id="error-msg">Yanlış cevap, bir daha dene sevgilim 🥺</p>
+            <p class="hint-text">İpucu: Gün Ay Yıl formatında yaz...</p>
+        </div>
+    </div>
+
+    <!-- ============ ANA SAYFA ============ -->
+    <div id="main-page">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="big-heart">💖</div>
+            <h1>Seni Seviyorum, Sevgilim</h1>
+            <p>
+                Seninle geçirdiğimiz her an, her gülüşün, her bakışın benim için paha biçilmez.
+                Bu küçük köşeyi sana, bize ve gelecekteki kızımıza göstermemiz için hazırladım...
+            </p>
+            <div class="scroll-indicator">↓</div>
+        </section>
+
+        <!-- SAYAÇ -->
+        <section class="counter-section">
+            <h2>Birlikte Geçirdiğimiz Süre 💞</h2>
+            <div class="counter-grid">
+                <div class="counter-box">
+                    <span class="number" id="days">0</span>
+                    <span class="label">Gün</span>
+                </div>
+                <div class="counter-box">
+                    <span class="number" id="hours">0</span>
+                    <span class="label">Saat</span>
+                </div>
+                <div class="counter-box">
+                    <span class="number" id="minutes">0</span>
+                    <span class="label">Dakika</span>
+                </div>
+                <div class="counter-box">
+                    <span class="number" id="seconds">0</span>
+                    <span class="label">Saniye</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANILAR -->
+        <section class="memories-section">
+            <h2>Anılarımız 📸</h2>
+
+            <!-- ANI 1 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto1.jpeg" alt="İlk Tanışma">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 04 Temmuz 2025</div>
+                    <h3>İlk Tanıştığımız An</h3>
+                    <p>Kremlin mini kulübün bizi tanıştırmış ve bizi biz yapmış olmasına hala çok şaşırıyorum iyi ki yaz
+                        için çalışmaya girmişim oraya iyi ki tanımışım seniii 💖 İlk işe girdiğin günün akşamı
+                        şevvallerle parkta buluşmuştuk ve o gün içimden aynı shifte çalışmak için dualar ediyordum</p>
+                </div>
+            </div>
+
+            <!-- ANI 2 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto2.jpeg" alt="İlk Buluşma">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 13 Temmuz 2025</div>
+                    <h3>İlk Buluşmamız</h3>
+                    <p>İlk baş başa buluşmamız adamlar konseriydi ve hayatımdaki en kıymetli anlardan bir tanesiydi o
+                        gün
+                        çok güzel olmuştun ve ilk koluma girdiğin gündü</p>
+                </div>
+            </div>
+
+            <!-- ANI 3 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto3.jpeg" alt="İlk Gezimiz">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 7 Şubat 2026</div>
+                    <h3>İlk Gezimiz</h3>
+                    <p>Beraber davraza gittik, aslında çok yorucu çook kaotik bir gündü ama seninle paylaştığım her şey
+                        unutulmaz derece kıymetliii 💖💖</p>
+                </div>
+            </div>
+
+            <!-- ANI 4 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto4.jpeg" alt="En Çok Güldüğümüz An">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 14 Ağustos 2025</div>
+                    <h3>Beraber en yorulduğumuz gün</h3>
+                    <p>Benim evimi taşımaya yardım etmiştin :DDD çok yorulmuştuk ve çok acıkmıştık hava aşırı sıcaktı
+                        ama o gün kendimi senin varlığınla çok güçlü hissettim 💖</p>
+                </div>
+            </div>
+
+            <!-- ANI 5 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto5.jpeg" alt="Romantik Anımız">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 1 Ağustos 2025</div>
+                    <h3>En Romantik Anımız</h3>
+                    <p>Daha önce hiç güneşi doğurmadığını söylemiştin, ve sahilde seninle sabahlamıştık(sen uyumuştun)
+                        ben sana bir şey olmasından korkup uyumamaya çalışmıştım </p>
+                </div>
+            </div>
+
+            <!-- ANI 6 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto6.jpeg" alt="Favori Mekanımız">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 Her zaman????</div>
+                    <h3>Favori Mekanımız</h3>
+                    <p>Sen oranın neresi olduğunuuu ÇOOOOOOK iyi biliyosun ne kadar sevmesende sanırım meltem macbear :D
+                    </p>
+                </div>
+            </div>
+
+            <!-- ANI 7 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto7.jpeg" alt="Sürprizler">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 25 Aralık 2025</div>
+                    <h3>Sürprizler</h3>
+                    <p>Aslında burayı yaparken birbirimize büyüklü küçüklü çok fazla sürpriz yaptığımızı hatırladım ama
+                        sanırım en sevdiğin fotodaki </p>
+                </div>
+            </div>
+
+            <!-- ANI 8 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto8.jpeg" alt="Birlikte Yemek">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 19 Temmuz 2025</div>
+                    <h3>O kişi olduğuna inandığım gün</h3>
+                    <p>Kesinlikle kesinlikle ve kesinlikle ayakkabımın içine not yazdığın gündü</p>
+                </div>
+            </div>
+
+            <!-- ANI 9 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto9.jpeg" alt="Gün Batımı">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 12 Eylül 2025</div>
+                    <h3>En huzurlu gün</h3>
+                    <p>Tüm günlerimiz huzurlu ama meltem belediye parkında seninle izlediğimiz türkiye basketbol maçı
+                        çok güzel hissettirmişti</p>
+                </div>
+            </div>
+
+            <!-- ANI 10 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto10.jpeg" alt="Özel Günler">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 3 Eylül 2025</div>
+                    <h3>Doğum Günü Kutlaması</h3>
+                    <p>Yağmur çantasındaki ipi yakmaya çalışıyo yaaa.... (Çok özel hissetirdiğin için sana sonsuz
+                        teşekkür ederim sevgilim)</p>
+                </div>
+            </div>
+
+            <!-- ANI 11 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto11.jpeg" alt="Komik Anlar">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 16 Ekim 2025</div>
+                    <h3>Komik Anımız</h3>
+                    <p>Çiçek legoyu 1 saat 47 dakikada yapan tek çift olabilir sanırım...</p>
+                </div>
+            </div>
+
+            <!-- ANI 12 -->
+            <div class="memory-card">
+                <div class="memory-img">
+                    <img src="photos/foto12.jpeg" alt="Son Anımız">
+                </div>
+                <div class="memory-content">
+                    <div class="memory-date">📅 14 Şubat 2026</div>
+                    <h3>Bugün ve Sonsuza Kadar</h3>
+                    <p>Bugün seninle başlayan bu yolculuk sonsuza kadar devam edecek seni çok seviyorum sevgiliiimmmmmm
+                        💕</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- MEKTUP -->
+        <section class="letter-section">
+            <h2>Sana Bir Mektup 💌</h2>
+            <div class="letter-box">
+                <p>Sevgilim,</p>
+                <br>
+                <p>
+                    Sana bu mektubu, bu dünyadaki neden en şanslı insan olduğumu anlaman için yazıyorum.
+                    Hayatımda ilk defa yalnız hissetmediğim ve bana ilk defa gerçekten yaşıyormuşum gibi hissettirdiğin
+                    için sana çok
+                    minnettarım.
+
+                    Seni ilk fotoğraflarda gördüğüm andan beri kalbim de gözlerim de senden başka hiçbir şey görmüyor.
+
+                    Seni o mini kulüpte ilk gördüğüm gün… Fotoğraflardan tanıyıp beğendiğim o kızın, yan koltuğumda
+                    oturacağını asla
+                    düşünmezdim. O an içimde tarifsiz bir mutluluk hissettim. Gerçekten çok şanslıydım… ve hâlâ öyleyim.
+
+                    Şu an ise 24 yıllık hayatımın en güzel zamanını yaşıyorum. Ve biliyorum ki bundan sonra da daha
+                    güzelini yaşayacağım.
+                    Çünkü sen varsın.
+
+                    Bir ömür hayat arkadaşım olacağını, birbirimizi her geçen gün bir öncekinden daha çok seveceğimizi
+                    tüm kalbimle
+                    biliyorum.
+
+                    Sen benim arkamdaki en büyük güç, en güzel sevgi, en kıymetli huzursun.
+                    Ben seni bir ömür sevmek, sana bir ömür adamak istiyorum sevgilim.
+
+                    Çünkü sen benim en güzel tesadüfümsün…
+                    Kalbimin en doğru seçimi, ruhumun en huzurlu evi oldun.
+
+                    Ben seninle hayatı sevdim, seninle kendimi buldum.
+                    Ve şimdi tek dileğim şu:
+                    Her sabaha seninle uyanmak, her geceyi seninle tamamlamak…
+
+                    Elini tuttuğum her an, dünyadaki tüm şansımın sen olduğunu anlıyorum.
+                    Seni çok seviyorum… ve seni sevmek, hayatımın en güzel hikâyesi.
+                </p>
+                <br>
+                <p>
+                    Seninle tanıştığım gün hayatımdaki en güzel gündü.
+                    Her geçen gün seni daha çok seviyorum ve bu sevgi asla bitmeyecek.
+                </p>
+                <br>
+                <p>
+                    İyi ki varsın, iyi ki benimlesin.
+                    Seni sonsuza kadar seveceğim... 💕
+                </p>
+                <div class="signature">Seni Çok Seven Ben 💗</div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Bu site yamura özel yapıldı ulan! <span class="footer-heart">💖</span></p>
+            <p style="margin-top: 10px; font-size: 0.75rem;">Sonsuza kadar seninle...</p>
+        </div>
+
+    </div>
+
+    <script>
+
+        function createHearts() {
+            const container = document.getElementById('hearts-bg');
+            const hearts = ['💕', '💖', '💗', '💝', '❤️', '💘', '💓', '✨'];
+
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 15 + 12) + 'px';
+                heart.style.animationDuration = (Math.random() * 5 + 6) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 12000);
+            }, 800);
+        }
+        createHearts();
+
+
+        const PASSWORD = '25072025';
+
+        function checkPassword() {
+            const input = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input === PASSWORD) {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-page').style.display = 'block';
+                startCounter();
+                observeMemories();
+            } else {
+                errorMsg.classList.add('show');
+                document.getElementById('password').style.borderColor = '#ff6b8a';
+
+                setTimeout(() => {
+                    errorMsg.classList.remove('show');
+                    document.getElementById('password').style.borderColor = 'rgba(248, 164, 200, 0.3)';
+                }, 2500);
+            }
+        }
+
+
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+
+        function startCounter() {
+            const startDate = new Date(2025, 6, 25);
+
+            function updateCounter() {
+                const now = new Date();
+                const diff = now - startDate;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+
+            updateCounter();
+            setInterval(updateCounter, 1000);
+        }
+
+
+        function observeMemories() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.memory-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+    </script>
+</body>
+
+</html>
